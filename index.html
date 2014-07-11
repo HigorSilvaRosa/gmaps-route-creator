@@ -23,36 +23,50 @@
     <header>
         <div class="col-lg-12">
             <h1>
+                <span class="glyphicon glyphicon-map-marker be_red"></span>
                 <span class="glyphicon glyphicon-map-marker"></span>
-                <span class="glyphicon glyphicon-map-marker"></span>
-                <span class="glyphicon glyphicon-map-marker"></span>
-                GMaps Route Creator
+                <span class="glyphicon glyphicon-map-marker be_red"></span>
+                GMaps <span class="be_red">Route</span> Creator
                 <small>By: HigorSilvaRosa</small>
             </h1>
         </div>
     </header>
-    <div class="col-lg-8">
-        <h2>Mapa</h2>
-        <div id="map">
+</div>
+<div class="col-lg-8">
+    <h2>Mapa</h2>
+    <!--<h3>Buscar local</h3>-->
+    <!--<div class="input-group">-->
+        <!--<input type="text" class="form-control" id="search-address-field" placeholder="Busque por algum local aqui">-->
+      <!--<span class="input-group-btn">-->
+        <!--<button class="btn btn-default" type="button" id="search-address-button">Buscar!</button>-->
+      <!--</span>-->
+    <!--</div>-->
+    <div id="map">
 
-        </div>
     </div>
-    <div class="col-lg-4">
+</div>
+<div class="col-lg-4">
 
-        <h2>Rota</h2>
+    <h2>Rota</h2>
+    <div class="checkbox">
+        <label>
+            <input type="checkbox" id="use-directions-service" checked> Usar Google Maps Directions Service
+        </label>
+    </div>
+    <div id="google-maps-directions-service-options">
         <h3>Modo de viagem</h3>
-        <select class="form-control" id="travel-mode" onchange="calculateRoute();">
+        <select class="form-control" id="travel-mode">
             <option value="DRIVING">Dirigindo</option>
             <option value="WALKING">Andando</option>
             <option value="BICYCLING">Pedalando</option>
             <option value="TRANSIT">Trânsitar</option>
         </select>
-        <h3>Coordenadas</h3>
-        <div class="panel panel-default">
-            <div class="panel-body">
-                <ul class="list-group" id="coordinates">
-                </ul>
-            </div>
+    </div>
+    <h3>Coordenadas</h3>
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <ul class="list-group" id="coordinates">
+            </ul>
         </div>
     </div>
 </div>
@@ -72,6 +86,8 @@
     var directionsService = null;
     var directionsDisplay = null;
     //var gmapsCoordinates = []
+
+    var useDirectionsService = true;
 
     $(document).ready(function(){
         initialize();

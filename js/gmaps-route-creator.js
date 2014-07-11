@@ -87,8 +87,30 @@ function initialize() {
 
         addCoordinate(coordinate, index);
         listCoordinates();
-        calculateRoute();
-        drawRoute();
+        if (useDirectionsService) {
+            calculateRoute();
+        }
+        else{
+            drawRoute();
+        }
+    });
+
+    $("#travel-mode").change(function(){
+        if (useDirectionsService){
+            calculateRoute();
+        }
+    });
+
+    $("#use-directions-service").click(function(){
+        console.log($("#use-directions-service").val());
+        if ($("#use-directions-service").is(":checked")){
+            useDirectionsService = true;
+            $("#google-maps-directions-service-options").show();
+        }
+        else{
+            useDirectionsService = false;
+            $("#google-maps-directions-service-options").hide();
+        }
     });
 
     route = new google.maps.Polyline({
