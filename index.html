@@ -20,19 +20,40 @@
 </head>
 <body>
 <div class="container">
-<header>
-    <div class="col-lg-12">
-        <h1><span class="glyphicon glyphicon-map-marker"></span> GMaps Route Creator <small>By: HigorSilvaRosa</small></h1>
-    </div>
-</header>
-    <div class="col-lg-9">
+    <header>
+        <div class="col-lg-12">
+            <h1>
+                <span class="glyphicon glyphicon-map-marker"></span>
+                <span class="glyphicon glyphicon-map-marker"></span>
+                <span class="glyphicon glyphicon-map-marker"></span>
+                GMaps Route Creator
+                <small>By: HigorSilvaRosa</small>
+            </h1>
+        </div>
+    </header>
+    <div class="col-lg-8">
         <h2>Mapa</h2>
         <div id="map">
 
         </div>
     </div>
-    <div class="col-lg-3">
+    <div class="col-lg-4">
 
+        <h2>Rota</h2>
+        <h3>Modo de viagem</h3>
+        <select class="form-control" id="travel-mode" onchange="calculateRoute();">
+            <option value="DRIVING">Dirigindo</option>
+            <option value="WALKING">Andando</option>
+            <option value="BICYCLING">Pedalando</option>
+            <option value="TRANSIT">Trânsitar</option>
+        </select>
+        <h3>Coordenadas</h3>
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <ul class="list-group" id="coordinates">
+                </ul>
+            </div>
+        </div>
     </div>
 </div>
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
@@ -45,6 +66,13 @@
 
 <script>
     var map;
+    var coordinates = [];
+    var index = null;
+    var route = null;
+    var directionsService = null;
+    var directionsDisplay = null;
+    //var gmapsCoordinates = []
+
     $(document).ready(function(){
         initialize();
     });
