@@ -11,8 +11,16 @@ function addCoordinate(coordinate, index){
 }
 
 function removeLastCoordinate(coordinate, index){
-    if(index == null) {
-        coordinates.pop();
+    if (coordinates.length > 0){
+        if(index == null) {
+            coordinates.pop();
+            return true;
+        }
+
+    }
+    else{
+        console.log("Não tem nenhuma coordenada selecionada ainda!");
+        return false;
     }
 }
 
@@ -72,6 +80,18 @@ function calculateRoute() {
     });
 }
 
+function centerAddress(address) {
+    var geocoder = new google.maps.Geocoder();
+    geocoder.geocode({
+        'address': address
+    }, function(results, status) {
+        if (status == google.maps.GeocoderStatus.OK) {
+            map.setCenter(results[0].geometry.location);
+            map.setZoom(16);
+        }
+    });
+}
+
 function initialize() {
 
     //Criando mapa
@@ -103,7 +123,26 @@ function initialize() {
 
     $("#travel-mode").change(function(){
         if (useDirectionsService){
-            calculateRoute();
+            calculateRoute();function codeAddress(address) {
+    geocoder = new google.maps.Geocoder();
+    geocoder.geocode({
+        'address': address
+    }, function(results, status) {
+        if (status == google.maps.GeocoderStatus.OK) {
+            var myOptions = {
+                zoom: 8,
+                center: results[0].geometry.location,
+                mapTypeId: google.maps.MapTypeId.ROADMAP
+            }
+            map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
+
+            var marker = new google.maps.Marker({
+                map: map,
+                position: results[0].geometry.location
+            });
+        }
+    });
+}
         }
     });
 
@@ -119,16 +158,21 @@ function initialize() {
     });
 
     $("#remove-last-coordinate").click(function(){
-        removeLastCoordinate();
-        listCoordinates();
-        console.log(coordinates);
-        if (useDirectionsService) {
-            calculateRoute();
+        if (removeLastCoordinate()){
+            listCoordinates();
+            if (useDirectionsService && coordinates.length > 0) {
+                calculateRoute();
+            }
+            else{
+                drawRoute();
+            }
         }
-        else{
-            drawRoute();
-        }
+    });
 
+    $("#search-address-form").submit(function(event){
+        var adress = $("#search-address-field").val();
+        centerAddress(adress);
+        event.preventDefault();
     });
 
     route = new google.maps.Polyline({

@@ -34,13 +34,15 @@
 </div>
 <div class="col-lg-8">
     <h2>Mapa</h2>
-    <!--<h3>Buscar local</h3>-->
-    <!--<div class="input-group">-->
-        <!--<input type="text" class="form-control" id="search-address-field" placeholder="Busque por algum local aqui">-->
-      <!--<span class="input-group-btn">-->
-        <!--<button class="btn btn-default" type="button" id="search-address-button">Buscar!</button>-->
-      <!--</span>-->
-    <!--</div>-->
+    <h3>Buscar local</h3>
+    <form id="search-address-form">
+    <div class="input-group">
+        <input type="text" class="form-control" id="search-address-field" placeholder="Busque por algum local aqui">
+      <span class="input-group-btn">
+        <button class="btn btn-default" type="submit" id="search-address-button">Buscar!</button>
+      </span>
+    </div>
+    </form>
     <div id="map">
 
     </div>
@@ -70,7 +72,7 @@
         </div>
         <button type="button" class="btn btn-danger" id="remove-last-coordinate">
             <span class="glyphicon glyphicon-remove"></span>
-            Remover último
+            Remover última
         </button>
     </div>
 </div>
