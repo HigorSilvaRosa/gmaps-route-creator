@@ -10,6 +10,12 @@ function addCoordinate(coordinate, index){
     }
 }
 
+function removeLastCoordinate(coordinate, index){
+    if(index == null) {
+        coordinates.pop();
+    }
+}
+
 
 // Exibe lista de coordenadas adicionadas
 function listCoordinates(){
@@ -102,7 +108,6 @@ function initialize() {
     });
 
     $("#use-directions-service").click(function(){
-        console.log($("#use-directions-service").val());
         if ($("#use-directions-service").is(":checked")){
             useDirectionsService = true;
             $("#google-maps-directions-service-options").show();
@@ -111,6 +116,19 @@ function initialize() {
             useDirectionsService = false;
             $("#google-maps-directions-service-options").hide();
         }
+    });
+
+    $("#remove-last-coordinate").click(function(){
+        removeLastCoordinate();
+        listCoordinates();
+        console.log(coordinates);
+        if (useDirectionsService) {
+            calculateRoute();
+        }
+        else{
+            drawRoute();
+        }
+
     });
 
     route = new google.maps.Polyline({
